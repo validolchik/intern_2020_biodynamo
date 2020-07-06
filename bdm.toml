@@ -1,0 +1,7 @@
+[visualization]
+export = true
+export_interval = 1
+
+	[[visualize_sim_object]]
+	name = "Agent"
+	additional_data_members = [ "color_" ]

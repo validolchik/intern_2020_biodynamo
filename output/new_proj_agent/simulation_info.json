@@ -1,0 +1,17 @@
+{
+  "simulation": {
+    "name":"new_proj_agent",
+    "result_dir":"output/new_proj_agent"
+  },
+  "sim_objects": [
+    {
+      "name":"Agent",
+      "glyph":"Glyph",
+      "shape":"Sphere",
+      "scaling_attribute":"diameter_"
+    }
+  ],
+  "extracellular_substances": [
+
+  ]
+}
