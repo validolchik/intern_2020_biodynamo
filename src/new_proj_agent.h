@@ -82,11 +82,28 @@ inline int Simulate(int argc, const char** argv) {
     Agent* agent = new Agent({x_coord, y_coord, z_coord});
     agent->SetDiameter(7.5);
     agent->SetInfected(false);
+    // printf("%d\n", agent->GetUid());
     rm->push_back(agent);
   }
 
   Agent* agent = new Agent({20, 50, 0});
   agent->SetDiameter(6);
+  // auto uid = agent->GetUid();
+  // printf("%d\n", uid);
+
+  for (size_t i = 0; i < nb_of_agents-1; ++i){
+  	Agent* agent = (Agent*) rm->GetSimObject((const bdm::SoUid) i);
+  	auto pos = agent->GetPosition();
+  	double x = pos[0];
+  	double y = pos[1];
+  	double dis_x = 20 - x;
+  	double dis_y = 20 - y;
+  	double dis = sqrt(dis_x*dis_x + dis_y * dis_y);
+  	if(dis < 200){
+  		printf("%d\n", agent->GetUid());
+  		agent->SetInfected(true);
+  	} 
+  }
 
   simulation.GetScheduler()->Simulate(1);
 
