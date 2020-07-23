@@ -23,7 +23,9 @@ class Agent : public Cell {
 
  public:
   Agent() {}
-  explicit Agent(const Double3& position) : Base(position) {}
+  explicit Agent(const Double3& position) : Base(position) {
+  	SetDiameter(7.5);
+  }
 
   Agent(const Event& event, SimObject* other, uint64_t new_oid = 0)
       : Base(event, other, new_oid) {}
@@ -80,26 +82,26 @@ inline int Simulate(int argc, const char** argv) {
     y_coord = myrand->Uniform(param->min_bound_, param->max_bound_);
     z_coord = 0;
     Agent* agent = new Agent({x_coord, y_coord, z_coord});
-    agent->SetDiameter(7.5);
+    // agent->SetDiameter(7.5);
     agent->SetInfected(false);
-    // printf("%d\n", agent->GetUid());
     rm->push_back(agent);
   }
 
-  Agent* agent = new Agent({20, 50, 0});
-  agent->SetDiameter(6);
-  // auto uid = agent->GetUid();
-  // printf("%d\n", uid);
+  double inf_agent_x = 20;
+  double inf_agent_y = 50;
+  double infection_distance = 100;
+  Agent* agent = new Agent({inf_agent_x, inf_agent_y, 0});
+  // agent->SetDiameter(6);
 
   for (size_t i = 0; i < nb_of_agents-1; ++i){
   	Agent* agent = (Agent*) rm->GetSimObject((const bdm::SoUid) i);
   	auto pos = agent->GetPosition();
   	double x = pos[0];
   	double y = pos[1];
-  	double dis_x = 20 - x;
-  	double dis_y = 20 - y;
+  	double dis_x = inf_agent_x - x;
+  	double dis_y = inf_agent_y - y;
   	double dis = sqrt(dis_x*dis_x + dis_y * dis_y);
-  	if(dis < 200){
+  	if(dis < infection_distance){
   		printf("%d\n", agent->GetUid());
   		agent->SetInfected(true);
   	} 
